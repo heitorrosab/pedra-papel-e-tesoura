@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedra, Papel e Tesoura</title>
+</head>
+<body>
+
+    <h1>✊ Pedra, Papel e Tesoura</h1>
+
+    <p>Escolha sua jogada!</p>
+
+    <button onclick="jogar('Pedra')">✊ Pedra</button>
+    <button onclick="jogar('Papel')">✋ Papel</button>
+    <button onclick="jogar('Tesoura')">✌️ Tesoura</button>
+
+    <div id="resultado">Faça sua primeira jogada!</div>
+
+    <div class="placar">
+        <p>Vitórias: <span id="vitorias">0</span></p>
+        <p>Derrotas: <span id="derrotas">0</span></p>
+        <p>Empates: <span id="empates">0</span></p>
+    </div>
+
+    <button id="reset" onclick="resetar()">🔄 Reiniciar jogo</button>
+
+    <script>
+        let vitorias = 0;
+        let derrotas = 0;
+        let empates = 0;
+
+        function jogar(jogador) {
+
+            const opcoes = ["Pedra", "Papel", "Tesoura"];
+
+            const computador = opcoes[
+                Math.floor(Math.random() * 3)
+            ];
+
+            let mensagem = "";
+
+            if (jogador === computador) {
+                mensagem = "Empate!";
+                empates++;
+
+            } else if (
+                (jogador === "Pedra" && computador === "Tesoura") ||
+                (jogador === "Papel" && computador === "Pedra") ||
+                (jogador === "Tesoura" && computador === "Papel")
+            ) {
+                mensagem = "Você venceu!";
+                vitorias++;
+
+            } else {
+                mensagem = "Você perdeu!";
+                derrotas++;
+            }
+
+            document.getElementById("resultado").innerText =
+                `Você: ${jogador} | Computador: ${computador} - ${mensagem}`;
+
+            atualizarPlacar();
+        }
+
+        function atualizarPlacar() {
+            document.getElementById("vitorias").innerText = vitorias;
+            document.getElementById("derrotas").innerText = derrotas;
+            document.getElementById("empates").innerText = empates;
+        }
+
+        function resetar() {
+            vitorias = 0;
+            derrotas = 0;
+            empates = 0;
+
+            atualizarPlacar();
+
+            document.getElementById("resultado").innerText =
+                "Faça sua primeira jogada!";
+        }
+</script>
+</body>
+</html>
